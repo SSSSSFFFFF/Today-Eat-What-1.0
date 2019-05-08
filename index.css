@@ -1,0 +1,56 @@
+
+  .loadding {
+    width: 100vw;
+  }
+
+  .eatWhat {
+    padding: 2rem 1.5rem;
+  }
+
+  .el-tag+.el-tag {
+    margin: 0.5rem;
+  }
+
+  .button-new-tag {
+        min-width: 75px;
+    height: 32px;
+    line-height: 30px;
+   padding-top: 0;
+     padding-bottom: 0;
+  }
+
+  .input-new-tag {
+    width: 75px;
+    vertical-align: center;
+  }
+
+  body {
+    margin: 0;
+  }
+  .juedingle {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .header {
+     border: 1px solid #cccccc;
+    padding-bottom: 1rem;
+    width: 70vw;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    /* padding-top:60px; */
+  }
+  body {
+    margin:0;
+  }
+
+  [v-cloak] {
+    opacity: 0;
+  }
