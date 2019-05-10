@@ -12,7 +12,7 @@
 
 <body>
     <div id="app">
-        <div class="loadding" v-loading="loading">
+        <div class="loadding" >
 
             <div class="header">
                  <div class="juedingle" v-cloak>今天吃：{{chi}}</div>
@@ -32,6 +32,11 @@
            </div>
            
          </div>
+         <el-alert title="已经有了"  type="error" effect="dark" v-show="alertShow" center :closable="false" show-icon>
+        </el-alert>
+        <div class="zhezhao" v-loading="loading" :style="zzStyle">
+
+        </div>
     </div>
 </body>
 <script src="./vue.min.js"></script>
@@ -55,12 +60,16 @@
                 num: 0,
                 content: '随机选一个',
                 types: 'primary',
+                alertShow: false,
+                zzStyle:{
+                    "z-index" : -1,
+                },
             }
         },
         mounted() {
             axios.get(Host + 'queryTable?db=SF_foods&table=foods').then(response => {
                     let json = response.data.data[0];
-                    console.log("%c 初始查询表的数据", "color:red", json.foodName)
+                    // console.log("%c 初始查询表的数据", "color:red", json.foodName)
                     this.dynamicTags = json.foodName;
                     this.loading = false;
                     this.qiguai = JSON.stringify(this.dynamicTags)
@@ -82,21 +91,38 @@
                     this.$refs.saveTagInput.$refs.input.focus();
                 });
             },
-
             handleInputConfirm() {
 
                 let inputValue = this.inputValue;
-                if (inputValue) {
-                    this.dynamicTags.unshift(inputValue);
+                console.log(this.inputValue,this.dynamicTags)
+   
+                // 判断有没有存在相同的店名
+                for(let i = 0; i< this.dynamicTags.length ;i++){
+                    if(this.dynamicTags[i] == this.inputValue){
+                        let that = this;
+                        this.alertShow =  true,
+                        this.inputVisible = false;
+                        this.inputValue = '';
+                        setTimeout(function(){
+                            that.alertShow =  false
+                        },2000)
+                        return;
+                    } 
                 }
-
+                if (inputValue) {
+                        this.dynamicTags.unshift(inputValue);
+                 }
                 this.inputVisible = false;
-                this.inputValue = '';
-                this.change();
+                 this.inputValue = '';
+                 this.change();
+               
             },
             // 数据库修改新菜
             change() {
-                console.log("%c 修改数据", "color:blue", this.qiguai, this.dynamicTags)
+                this.zzStyle = {
+                    "z-index" : 1,
+                };
+                // console.log("%c 修改数据", "color:blue", this.qiguai, this.dynamicTags)
                 this.loading = true;
                 let postData = {
                     "db": "SF_foods",
@@ -117,11 +143,14 @@
 
                         axios.get(Host + 'queryTable?db=SF_foods&table=foods').then(response => {
                                 let json = response.data.data[0];
-                                console.log("%c 初始查询表的数据", "color:red", json.foodName)
+                                // console.log("%c 初始查询表的数据", "color:red", json.foodName)
                                 this.dynamicTags = json.foodName;
                                 this.loading = false;
                                 this.qiguai = JSON.stringify(this.dynamicTags)
                                 this.loading = false;
+                                this.zzStyle = {
+                                    "z-index" : -1,
+                                };
                             })
                             .catch((error) => {
                                 console.log(error)

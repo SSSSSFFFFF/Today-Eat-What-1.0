@@ -12,7 +12,7 @@
   }
 
   .button-new-tag {
-        min-width: 75px;
+    min-width: 75px;
     height: 32px;
     line-height: 30px;
    padding-top: 0;
@@ -20,7 +20,7 @@
   }
 
   .input-new-tag {
-    width: 75px;
+    width: 75px!important;
     vertical-align: center;
   }
 
@@ -54,3 +54,21 @@
   [v-cloak] {
     opacity: 0;
   }
+
+  .el-alert {
+    position: fixed!important;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 35vw!important;
+  }
+
+  .zhezhao {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+
